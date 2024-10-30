@@ -1,53 +1,28 @@
-name: Contractor Authentication Tests
+name: Automated Testing
 
 on:
   push:
     branches:
-      - main
-      - development
-      - feature/*
-  pull_request:
-    branches:
-      - main
-      - development
-      - feature/*
+      - development  # Only runs on pushes to the development branch
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      # Set up a mock or your actual database and email services
-      db:
-        image: postgres:12
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      smtp:
-        image: mailhog/mailhog
-        ports:
-          - 1025:1025
-          - 8025:8025
-
-    strategy:
-      matrix:
-        python-version: ['3.8', '3.9', '3.10']
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-    - name: Run tests
-      run: |
-        pytest test_contractor_auth.py
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Python Tests
+        run: |
+          pytest tests/  # Make sure all your tests are in the tests/ directory
