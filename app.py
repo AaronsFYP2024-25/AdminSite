@@ -19,7 +19,7 @@ mail = Mail(app)
 
 @app.route('/')
 def index():
-    return render_template('Index.html')  # Renders Index.html from the templates folder
+    return render_template('index.html')  # Renders Index.html from the templates folder
 
 @app.route('/test-email')
 def test_email():
