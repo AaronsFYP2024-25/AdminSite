@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, url_for
 from flask_mail import Mail, Message
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config['DEBUG'] = True
 app.config['MAIL_DEBUG'] = True
 
@@ -23,7 +23,8 @@ def index():
 
 @app.route('/test-email')
 def test_email():
-    admin_email = "FYPAccepter@gmail.com"
+    # admin_email = "FYPAccepter@gmail.com"
+    admin_email = "ACronnelly15@gmail.com"
     msg = Message("Test Email", sender=app.config['MAIL_USERNAME'], recipients=[admin_email])
     msg.body = "This is a test email from Flask."
     try:
@@ -55,9 +56,10 @@ def submit_form():
     Approve: {approve_url}
     Deny: {deny_url}
     """
-
+    
     msg = Message("Contractor Registration Request", sender=app.config['MAIL_USERNAME'], recipients=[admin_email])
     msg.body = email_body
+    print(email_body)
 
     try:
         mail.send(msg)
@@ -66,6 +68,8 @@ def submit_form():
     except Exception as e:
         print("Failed to send email:", e)
         return jsonify({"message": "Failed to send email", "error": str(e)}), 500
+    
+    
 
 
 # Approval and denial routes
