@@ -13,7 +13,7 @@ document.querySelector('.form').addEventListener('submit', async (event) => {
     };
 
     try {
-        fetch('http://127.0.0.1:5000/submit', {  // Ensure this URL is exact
+        fetch('/submit', {  // Ensure this URL is exact :: local http://127.0.0.1:5000/submit
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,17 +21,15 @@ document.querySelector('.form').addEventListener('submit', async (event) => {
             body: JSON.stringify(formData),
         });
 
-        
-        
-
-        if (Response.ok) {
+        // Check if the response was successful
+        if (response.ok) {
             alert('Your application has been submitted successfully!');
         } else {
             alert('Failed to submit the form. Please try again.');
+            console.error('Response not OK:', response);
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error occurred during form submission:', error);
         alert('An error occurred. Please try again later.');
-        console.log(formData);
     }
 });

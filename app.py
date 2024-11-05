@@ -20,21 +20,21 @@ app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
 mail = Mail(app)
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')  # Renders Index.html from the templates folder
+@app.route('/')
+def index():
+    return render_template('index.html')  # Renders Index.html from the templates folder
 
-# @app.route('/test-email')
-# def test_email():
-#     # admin_email = "FYPAccepter@gmail.com"
-#     admin_email = "ACronnelly15@gmail.com"
-#     msg = Message("Test Email", sender=app.config['MAIL_USERNAME'], recipients=[admin_email])
-#     msg.body = "This is a test email from Flask."
-#     try:
-#         mail.send(msg)
-#         return "Test email sent!"
-#     except Exception as e:
-#         return f"Failed to send email: {e}"
+@app.route('/test-email')
+def test_email():
+    admin_email = "FYPAccepter@gmail.com"
+    admin_email = "ACronnelly15@gmail.com"
+    msg = Message("Test Email", sender=app.config['MAIL_USERNAME'], recipients=[admin_email])
+    msg.body = "This is a test email from Flask."
+    try:
+        mail.send(msg)
+        return "Test email sent!"
+    except Exception as e:
+         return f"Failed to send email: {e}"
 
 @app.route('/submit', methods=['POST'])
 def submit():
