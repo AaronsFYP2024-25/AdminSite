@@ -13,10 +13,10 @@ document.querySelector('.form').addEventListener('submit', async (event) => {
     };
 
     try {
-        fetch('/submit', {  // Ensure this URL is exact :: local http://127.0.0.1:5000/submit
+        const response = await fetch('/submit', {  // Ensure this URL is exact :: local http://127.0.0.1:5000/submit
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json', 
             },
             body: JSON.stringify(formData),
         });
@@ -29,7 +29,7 @@ document.querySelector('.form').addEventListener('submit', async (event) => {
             console.error('Response not OK:', response);
         }
     } catch (error) {
-        console.error('Error occurred during form submission:', error);
+        console.error('An error occurred:', error);
         alert('An error occurred. Please try again later.');
     }
 });
